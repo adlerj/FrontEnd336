@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app="forum">
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="example.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+
+<div ng-controller="TopicCtrl">
+  <div ng-repeat="item in items" class="{{item.background}}" style="width:80%;">
+  	<h3>{{item.name}}</h3> ({{item.votes}} Votes)
+  	<br></br>
+  	<div class="btn-group" ng-click="vote(item)">
+        <button type="button" class="btn btn-primary" ng-model="item.voteModel" btn-radio="'Up'"><i class="fa fa-arrow-up"></i></button>
+        <button type="button" class="btn btn-primary" ng-model="item.voteModel" btn-radio="'Neutral'">Neutral</button>
+        <button type="button" class="btn btn-primary" ng-model="item.voteModel" btn-radio="'Down'"><i class="fa fa-arrow-down"></i></button>
+    </div>
+    <br></br>
+    <div class="btn-group">
+		  <button type="button" class="btn btn-default">View Sub-Topics</button>
+		  <button type="button" class="btn btn-default">View Questions for this topic</button>
+	</div>
+    <button type="button" class="btn btn-warning" ng-model="item.reported" ng-click="report(item)" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        Report this topic
+    </button>
+  </div> 
+  
+  <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>Add New Topic</h3>
+        </div>
+        <div class="modal-body">
+			<label for="newTopicInput">Topic</label>
+			<input type="name" class="form-control" ng-model="newTopicModel" placeholder="Enter New Topic" required></input>
+			<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+		</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok(newTopicModel)">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    
+    <button class="btn btn-default" ng-click="openModal()">Add Topic</button>
+</div>
+  </body>
+</html>
